@@ -1,0 +1,75 @@
+🔌 FarmBot – ESP32 Pin Configuration Sheet
+
+Controller: ESP32
+Motor Driver: L298N
+Servo Driver: PCA9685
+
+1️⃣ DC Motors (Robot Movement – L298N)
+Function	L298N Pin	ESP32 GPIO
+Motor A IN1	IN1	GPIO 14
+Motor A IN2	IN2	GPIO 27
+Motor B IN3	IN3	GPIO 26
+Motor B IN4	IN4	GPIO 25
+Motor Speed A	ENA	GPIO 33 (PWM)
+Motor Speed B	ENB	GPIO 32 (PWM)
+L298N GND	GND	ESP32 GND
+Motor Power	+12V	Battery +
+2️⃣ Robotic Arm – Servo Motors (via PCA9685)
+I2C Connection (ESP32 ↔ PCA9685)
+PCA9685 Pin	ESP32 GPIO
+SDA	GPIO 21
+SCL	GPIO 22
+VCC	5V
+GND	GND (Common)
+Servo Channel Mapping
+Arm Function	Servo	PCA9685 Channel
+Base (Left–Right)	MG995	Channel 0
+Arm (Up–Down)	MG995	Channel 1
+Gripper (Grab/Release)	MG995	Channel 2
+
+⚠ Servo power must be separate 5–6V high current supply
+
+3️⃣ Water Pump Motor
+Pump Module	ESP32 GPIO
+Signal (Relay/MOSFET)	GPIO 18
+Power	External Supply
+GND	Common GND
+4️⃣ Crop Cutter (High Speed DC Motor)
+Cutter Module	ESP32 GPIO
+Signal (Relay/MOSFET)	GPIO 19
+Power	External Supply
+GND	Common GND
+5️⃣ Soil Moisture Sensor
+Sensor Pin	ESP32 GPIO
+AO	GPIO 34 (ADC)
+VCC	3.3V
+GND	GND
+6️⃣ LCD Display (I2C – 16x2)
+LCD Pin	ESP32 GPIO
+SDA	GPIO 21
+SCL	GPIO 22
+VCC	5V
+GND	GND
+
+📌 LCD and PCA9685 share same I2C pins
+
+7️⃣ Power Summary (VERY IMPORTANT ⚠)
+Module	Power Source
+ESP32	5V via LM2596 Buck
+L298N Motors	9–12V Battery
+Servos (MG995)	Separate 5–6V Supply
+Pump & Cutter	External Supply
+Ground	ALL GND COMMON
+8️⃣ Quick Wiring Checklist (Before Power ON)
+
+✔ SDA → GPIO 21
+✔ SCL → GPIO 22
+✔ ENA → GPIO 33
+✔ ENB → GPIO 32
+✔ Pump → GPIO 18
+✔ Cutter → GPIO 19
+✔ All grounds connected together
+
+9️⃣ One-Line Explanation for Students
+
+“ESP32 controls motors, sensors, and robotic arm using GPIO and I2C pins, while PCA9685 handles smooth servo movement.”
